@@ -1,0 +1,56 @@
+<?php
+$title = 'My Uploads';
+$this->headTitle($title);
+?>
+<h2><?php echo $this->escapeHtml($title); ?></h2>
+<a href="<?php echo $this->url(NULL, array('controller' => 'UploadManager', 'action' => 'upload')); ?>" class="btn">Add Upload</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Label</th>
+            <th>Filename</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($this->myUploads as $upload) : ?>
+            <tr>
+                <td><?php echo $this->escapeHtml($upload->label); ?></td>
+                <td><?php echo $this->escapeHtml($upload->filename); ?></td>
+                <td>
+                    <a href="<?php
+                    echo $this->url('users/upload-manager', array(
+                        'action' => 'edit',
+                        'id' => $upload->id));
+                    ?>" >Edit</a>
+                    |
+                    <a href="<?php
+                       echo $this->url(NULL, array(
+                           'controller' => 'UploadManager',
+                           'action' => 'delete',
+                           'id' => $upload->id));
+                       ?>" onclick="return confirm('Voulez-vous supprimez ce fichier?') ? true : false;">Delete</a>
+                </td>
+            </tr>
+<?php endforeach; ?>
+    </tbody>
+</table>
+<h2>Shared Uploads</h2>
+
+<table class="table">
+    <tr>
+        <th>Filename</th>
+        <th>Action</th>
+        <th>Shared With</th>
+        <th>Shared By</th>
+    </tr>
+               <?php foreach ($sharedUploadsList as $uploadId => $upload) : ?>
+        <tr>
+            <td><?php echo $this->escapeHtml($upload['filename']); ?></td>
+            <td><a href="<?php echo $this->escapeHtml($this->url('users/upload-manager', array('action' => 'fileDownload', 'id' => $uploadId)));
+                   ?>">Download</a> </td>
+            <td><?php echo $this->escapeHtml(join("; ", $upload["sharedUsers"])); ?></td>
+            <td><?php echo $this->escapeHtml($upload['owner']); ?></td>
+        </tr>
+<?php endforeach; ?>
+</table>

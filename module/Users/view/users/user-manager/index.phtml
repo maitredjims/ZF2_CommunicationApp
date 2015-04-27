@@ -1,0 +1,36 @@
+<?php
+$title = 'Users';
+$this->headTitle($title);
+?>
+<h2><?php echo $this->escapeHtml($title); ?></h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>UserID/Email</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($this->users as $user): ?>
+        <tr>
+            <td><?php echo $this->escapeHtml($user->name); ?></td>
+            <td><?php echo $this->escapeHtml($user->email); ?></td>
+            <td>
+                <a href="<?php echo $this->url('users/user-manager', array(
+                    //'controller' => 'UserManager',
+                    'action' => 'edit',
+                    'id' => $user->id )); ?>">Edit</a> |
+                <a href="<?php echo $this->url('users/user-manager', array(
+                    //'controller' => 'UserManager',
+                    'action' => 'delete',
+                    'id' => $user->id)); ?>" onclick="return confirm('Are you sure to delete this user?') ? true : false">Delete</a>
+            </td>
+        </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<a href="<?php echo $this->url(NULL, array(
+                    'controller' => 'UserManager',
+                    'action' => 'add'
+    )); ?>" class="btn">Add New User</a>

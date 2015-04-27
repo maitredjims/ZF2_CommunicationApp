@@ -1,0 +1,22 @@
+<?php
+$title = 'Welcome to Users Module';
+$this->headTitle($title);
+
+// Attached jQuery UI Scripts
+$this->headScript()->appendFile('http://code.jquery.com//jquery-2.1.1.js','text/javascript');
+$this->headScript()->appendFile('http://code.jquery.com/ui/jquery-ui-git.js','text/javascript');
+
+// Attach jQuery UI Styles
+$this->headLink()->appendStylesheet('http://code.jquery.com/ui/1.10.0-beta.1/themes/base/jquery-ui.css');
+
+// UI Initializer for buttons
+$this->headScript()->appendScript('$(function() {$("a.ui-button").button();});', 'text/javascript');
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<h2>Existing Users</h2>
+<a href="users/login" class="ui-button">Login</a>
+<hr>
+<h2>New Users</h2>
+<a href="users/register" class="ui-button">Register</a>
+<hr>
+<a href="users/login/logout" class="ui-button">Logout</a>

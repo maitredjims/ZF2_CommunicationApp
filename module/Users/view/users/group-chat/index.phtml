@@ -1,0 +1,28 @@
+<?php
+// Attached jQuery UI Scripts
+$this->headScript()->appendFile('http://code.jquery.com//jquery-2.1.1.js','text/javascript');
+$this->headScript()->appendFile('http://code.jquery.com/ui/jquery-ui-git.js','text/javascript');
+
+// Attach jQuery UI Styles
+$this->headLink()->appendStylesheet('http://code.jquery.com/ui/1.10.0-beta.1/themes/base/jquery-ui.css');
+
+$this->headScript()->appendScript('$(function(){ $("#btnRefresh").click(function(event){ doument.getElementById("messageListFrame").contentWindow.location.reload(true); }) });', 'text/javascript');
+$this->headStyle()->appendStyle('
+      #userName { width:100px; margin-top:10px; display: inline}
+      #messageText { width:700px; margin-top:10px;}
+');
+?>
+<h3>Group Chat</h3>
+<iframe src="<?php echo $this->url('users/group-chat', array('action' => 'messageList')); ?>" width="80%" height="400px" id="messageListFrame"></iframe>
+<?php
+$form = $this->form;
+$form->prepare();
+echo $this->form()->openTag($form);
+
+echo '<label id=username>'.$userName.': </label>';
+foreach ($form as $element) {
+    echo $this->formElement($element);
+    echo $this->formElementErrors($element);
+}
+
+echo $this->form()->closeTag();
